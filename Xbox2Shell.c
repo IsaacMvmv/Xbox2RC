@@ -36,9 +36,10 @@ int main() {
     // Crear algunas variables
     bool quit = false;
     // Variables relacionadas con fixgiro
-    bool fixgiro = false;  // Fixgiro establece una memoria para los dos joysticks para que cuando lea RIGHT o LEFT,
-    bool JS0down = false;  // tenga memoria del anterior input (DOWN + RIGHT, UP + LEFT, etc...) para así, en términos de
-    bool JS1down = false;  // coches teledirigidos o similares, pueda mantener el giro y evitar "bugs" de girar repentinamente a la derecha yendo hacia atrás.
+    bool fixgiro = false;    // Fixgiro establece una memoria para los dos joysticks para que cuando lea RIGHT o LEFT,
+    bool JS0down = false;    // tenga memoria del anterior input (DOWN + RIGHT, UP + LEFT, etc...) para así, en términos de
+    bool JS1down = false;    // coches teledirigidos o similares, pueda mantener el giro y evitar "bugs" de girar repentinamente a la derecha yendo hacia atrás.
+                             // JS0down y JS1down son variables booleanas que establecen si el último giro fue dado combinado con el hacia adelante o el hacia atrás.
 
     // Parámetros
     int margen = 16378;
