@@ -26,14 +26,13 @@
 //        9: Noroeste
 //        12: Suroeste
 //
-//
-//
 // Axis 0: Horizontal joystick izquierdo    (Izquierda=-32767)
 // Axis 1: Vertical joystick izquierdo      (Arriba=-32767)
 // Axis 2: Trigger izquierdo                (Presionado=32767, Suelto=-32767)
 // Axis 3: Horizontal joystick derecho      (Izquierda=-32767)
 // Axis 4: Vertical joystick derecho        (Arriba=-32767)
 // Axis 5: Trigger derecho                  (Presionado=32767, Suelto=-32767)
+//
 
 
 int main() {
