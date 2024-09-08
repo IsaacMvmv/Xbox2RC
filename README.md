@@ -2,6 +2,10 @@
 Proyecto que consiste en lograr controlar un dispositivo RC con un mando de xbox one series X/S
 
 ## Programas/Herramientas que usaré
+
+### Drivers
+  - xpadneo [github](https://github.com/atar-axis/xpadneo.git)
+
 ### Programación:
   - Sublime text 4
   - GNU CC
