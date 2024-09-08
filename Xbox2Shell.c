@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <stdbool.h> //Para while(true)
 
-// Nota
+// Asignaciones de SDL2 sobre el mando XBOX
 //
 // Botón 0: A
 // Botón 1: B
@@ -15,6 +15,17 @@
 // Botón 9: Botón joystick izquierdo
 // Botón 10: Botón joystick derecho
 // Botón 11: Compartir (Es tan raro el icono que me da pereza sacarle buen nombre)
+//
+// Hat 0: Cruceta (DPAD)
+//        1: Norte
+//        2: Este
+//        3: Noreste
+//        4: Sur
+//        6: Sureste
+//        8: Oeste
+//        9: Noroeste
+//        12: Suroeste
+//
 //
 //
 // Axis 0: Horizontal joystick izquierdo    (Izquierda=-32767)
