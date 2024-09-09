@@ -4,19 +4,19 @@ Proyecto que consiste en lograr controlar un dispositivo RC con un mando de xbox
 ## Programas/Herramientas que usaré
 
 ### Drivers
-  - xpadneo [github](https://github.com/atar-axis/xpadneo.git)
+  - [xpadneo (driver XBOX bluetooth para linux)](https://github.com/atar-axis/xpadneo.git)
 
 ### Programación:
-  - Sublime text 4
-  - GNU CC
-  - SDL2
+  - [Sublime text 4](https://www.sublimetext.com/)
+  - [GNU Compiler Collection (GCC)](https://gcc.gnu.org/)
+  - [SDL2](https://www.libsdl.org/)
 
 ### Radiofrecuencia / Espectros / Ondas
-  - QSpectrumAnalyzer ([github](https://github.com/xmikos/qspectrumanalyzer))
-  - CubicSDR ([web](https://cubicsdr.com/), [github](https://github.com/cjcliffe/CubicSDR))
-  - GQRX ([web](https://www.gqrx.dk/), [github](https://github.com/gqrx-sdr/gqrx))
-  - Universal Radio Hacker (URH) ([github](https://github.com/jopohl/urh))
-  - Audacity ([web](https://www.audacityteam.org/), [github](https://github.com/audacity/audacity))
+  - [QSpectrumAnalyzer](https://github.com/xmikos/qspectrumanalyzer)
+  - [CubicSDR](https://cubicsdr.com/)
+  - [GQRX](https://www.gqrx.dk/)
+  - [Universal Radio Hacker (URH)](https://github.com/jopohl/urh)
+  - [Audacity](https://www.audacityteam.org/)
 
 
 ## Recursos web:
