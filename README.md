@@ -32,3 +32,7 @@ Mi comando de compilación suele ser
 ```
 gcc -o Xbox2Shell Xbox2Shell.c -lSDL2 -O3
 ```
+
+## Direcciones de un dron
+![imagen](https://github.com/user-attachments/assets/346159e0-e7f2-4506-a8d0-0e76da8aca99)
+Usaré si no 8, 16 direcciones para el movimiento horizontal
