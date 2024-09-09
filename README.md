@@ -8,7 +8,6 @@ Proyecto que consiste en lograr controlar un dispositivo RC con un mando de xbox
 
 ### Programación:
   - [Sublime text 4](https://www.sublimetext.com/)
-  - [GNU Compiler Collection (GCC)](https://gcc.gnu.org/)
   - [SDL2](https://www.libsdl.org/)
 
 ### Radiofrecuencia / Espectros / Ondas
