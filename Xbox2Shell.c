@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
-#include <stdbool.h> //Para while(true)
+#include <stdbool.h> // Para while(true)
+#include <math.h> // Para hallar la potencia de los joysticks
 
 // Asignaciones de SDL2 sobre el mando XBOX
 //
@@ -26,12 +27,12 @@
 //        9: Noroeste
 //        12: Suroeste
 //
-// Axis 0: Horizontal joystick izquierdo    (Izquierda=-32767)
-// Axis 1: Vertical joystick izquierdo      (Arriba=-32767)
-// Axis 2: Trigger izquierdo                (Presionado=32767, Suelto=-32767)
-// Axis 3: Horizontal joystick derecho      (Izquierda=-32767)
-// Axis 4: Vertical joystick derecho        (Arriba=-32767)
-// Axis 5: Trigger derecho                  (Presionado=32767, Suelto=-32767)
+// Axis 0: Horizontal joystick izquierdo    (Izquierda=-32768)
+// Axis 1: Vertical joystick izquierdo      (Arriba=-32768)
+// Axis 2: Trigger izquierdo                (Presionado=32768, Suelto=-32768)
+// Axis 3: Horizontal joystick derecho      (Izquierda=-32768)
+// Axis 4: Vertical joystick derecho        (Arriba=-32768)
+// Axis 5: Trigger derecho                  (Presionado=32768, Suelto=-32768)
 //
 
 
@@ -43,16 +44,56 @@ int main() {
     // Abrir joystick
     SDL_Joystick* joystick = SDL_JoystickOpen(0);
 
-    // Crear algunas variables
+    // Crear variable de salida del programa
     bool quit = false;
+
+    // Parámetros
+    int margen = 16378;
+    int margenTLR = 2 * margen - 32768; // Como los trigger tienen un valor en reposo de -32768, se ha de hacer una conversión lineal del margen global para que sea equivalente
+
+    // Crear variables de los valores de cada botón
+    int axis0 = 0;
+    int axis1 = 0;
+    int axis2 = 0;
+    int axis3 = 0;
+    int axis4 = 0;
+    int axis5 = 0;
+
+    int hat0 = 0;
+
+    int boton0 = 0;
+    int boton1 = 0;
+    int boton2 = 0;
+    int boton3 = 0;
+    int boton4 = 0;
+    int boton5 = 0;
+    int boton6 = 0;
+    int boton7 = 0;
+    int boton8 = 0;
+    int boton9 = 0;
+    int boton10 = 0;
+    int boton11 = 0;
+
+    // Variables relacionadas con PWR
+    bool PWR = true; // Si está activado, se incorporan los valores de potencia al programa
+    int PWRJS0 = -1;
+    int PWRJS1 = -1;
+    int PWRTL = -1;
+    int PWRTR = -1;
+    margen = 2000;
+    margenTLR = 2 * margen - 32768;
+    char PWRJS0_string[100];
+    char PWRJS1_string[100];
+    char PWRTR_string[100];
+    char PWRTL_string[100];
+
     // Variables relacionadas con fixgiro
     bool fixgiro = false;    // Fixgiro establece una memoria para los dos joysticks para que cuando lea RIGHT o LEFT,
     bool JS0down = false;    // tenga memoria del anterior input (DOWN + RIGHT, UP + LEFT, etc...) para así, en términos de
     bool JS1down = false;    // coches teledirigidos o similares, pueda mantener el giro y evitar "bugs" de girar repentinamente a la derecha yendo hacia atrás.
                              // JS0down y JS1down son variables booleanas que establecen si el último giro fue dado combinado con el hacia adelante o el hacia atrás.
 
-    // Parámetros
-    int margen = 16378;
+
 
     // Crear funciones para cada botón
     void Boton0() {
@@ -96,63 +137,81 @@ int main() {
     // Crear funciones para cada axis
     // Axis 0 & 1
     void JoystickIzquierdoNorte() {
-        system("echo 'JS0: UP'");
+        sprintf(PWRJS0_string, "echo 'JS0: UP   PWR:' %d", PWRJS0);
+        system(PWRJS0_string);
     }
     void JoystickIzquierdoSur() {
-        system("echo 'JS0: DOWN'");
+        sprintf(PWRJS0_string, "echo 'JS0: DOWN   PWR:' %d", PWRJS0);
+        system(PWRJS0_string);
     }
     void JoystickIzquierdoEste() {
-        system("echo 'JS0: RIGHT'");
+        sprintf(PWRJS0_string, "echo 'JS0: RIGHT PWR:' %d", PWRJS0);
+        system(PWRJS0_string);
     }
     void JoystickIzquierdoOeste() {
-        system("echo 'JS0: LEFT'");
+        sprintf(PWRJS0_string, "echo 'JS0: LEFT  PWR:' %d", PWRJS0);
+        system(PWRJS0_string);
     }
     void JoystickIzquierdoNoreste() {
-        system("echo 'JS0: UP + RIGHT'");
+        sprintf(PWRJS0_string, "echo 'JS0: UP + RIGHT  PWR:' %d", PWRJS0);
+        system(PWRJS0_string);
     }
     void JoystickIzquierdoNoroeste() {
-        system("echo 'JS0: UP + LEFT'");
+        sprintf(PWRJS0_string, "echo 'JS0: UP + LEFT  PWR:' %d", PWRJS0);
+        system(PWRJS0_string);
     }
     void JoystickIzquierdoSureste() {
-        system("echo 'JS0: DOWN + RIGHT'");
+        sprintf(PWRJS0_string, "echo 'JS0: DOWN + RIGHT  PWR:' %d", PWRJS0);
+        system(PWRJS0_string);
     }
     void JoystickIzquierdoSuroeste() {
-        system("echo 'JS0: DOWN + LEFT'");
+        sprintf(PWRJS0_string, "echo 'JS0: DOWN + LEFT  PWR:' %d", PWRJS0);
+        system(PWRJS0_string);
     }
 
     // Axis 3 & 4
     void JoystickDerechoNorte() {
-        system("echo 'JS1: UP'");
+        sprintf(PWRJS1_string, "echo 'JS1: UP   PWR:' %d", PWRJS1);
+        system(PWRJS1_string);
     }
     void JoystickDerechoSur() {
-        system("echo 'JS1: DOWN'");
+        sprintf(PWRJS1_string, "echo 'JS1: DOWN   PWR:' %d", PWRJS1);
+        system(PWRJS1_string);
     }
     void JoystickDerechoEste() {
-        system("echo 'JS1: RIGHT'");
+        sprintf(PWRJS1_string, "echo 'JS1: RIGHT PWR:' %d", PWRJS1);
+        system(PWRJS1_string);
     }
     void JoystickDerechoOeste() {
-        system("echo 'JS1: LEFT'");
+        sprintf(PWRJS1_string, "echo 'JS1: LEFT  PWR:' %d", PWRJS1);
+        system(PWRJS1_string);
     }
     void JoystickDerechoNoreste() {
-        system("echo 'JS1: UP + RIGHT'");
+        sprintf(PWRJS1_string, "echo 'JS1: UP + RIGHT  PWR:' %d", PWRJS1);
+        system(PWRJS1_string);
     }
     void JoystickDerechoNoroeste() {
-        system("echo 'JS1: UP + LEFT'");
+        sprintf(PWRJS1_string, "echo 'JS1: UP + LEFT  PWR:' %d", PWRJS1);
+        system(PWRJS1_string);
     }
     void JoystickDerechoSureste() {
-        system("echo 'JS1: DOWN + RIGHT'");
+        sprintf(PWRJS1_string, "echo 'JS1: DOWN + RIGHT  PWR:' %d", PWRJS1);
+        system(PWRJS1_string);
     }
     void JoystickDerechoSuroeste() {
-        system("echo 'JS1: DOWN + LEFT'");
+        sprintf(PWRJS1_string, "echo 'JS1: DOWN + LEFT  PWR:' %d", PWRJS1);
+        system(PWRJS1_string);
     }
 
     // Axis 2 & 5
     void TriggerIzquierdoPresionado() {
-        system("echo 'TL: HELD'");
+        sprintf(PWRTL_string, "echo 'TL: HELD  PWR:' %d", PWRTL);
+        system(PWRTL_string);
     }
 
     void TriggerDerechoPresionado() {
-        system("echo 'TR: HELD'");
+        sprintf(PWRTR_string, "echo 'TR: HELD  PWR:' %d", PWRTR);
+        system(PWRTR_string);
     }
 
     // Hat 0
@@ -197,27 +256,40 @@ int main() {
         SDL_JoystickUpdate();
 
         // Asignar variable a cada joystick, hat y botón
-        int axis0 = SDL_JoystickGetAxis(joystick, 0);
-        int axis1 = SDL_JoystickGetAxis(joystick, 1);
-        int axis2 = SDL_JoystickGetAxis(joystick, 2);
-        int axis3 = SDL_JoystickGetAxis(joystick, 3);
-        int axis4 = SDL_JoystickGetAxis(joystick, 4);
-        int axis5 = SDL_JoystickGetAxis(joystick, 5);
+        axis0 = SDL_JoystickGetAxis(joystick, 0);
+        axis1 = SDL_JoystickGetAxis(joystick, 1);
+        axis2 = SDL_JoystickGetAxis(joystick, 2);
+        axis3 = SDL_JoystickGetAxis(joystick, 3);
+        axis4 = SDL_JoystickGetAxis(joystick, 4);
+        axis5 = SDL_JoystickGetAxis(joystick, 5);
 
-        int hat0 = SDL_JoystickGetHat(joystick, 0);
+        hat0 = SDL_JoystickGetHat(joystick, 0);
 
-        int boton0 = SDL_JoystickGetButton(joystick, 0);
-        int boton1 = SDL_JoystickGetButton(joystick, 1);
-        int boton2 = SDL_JoystickGetButton(joystick, 2);
-        int boton3 = SDL_JoystickGetButton(joystick, 3);
-        int boton4 = SDL_JoystickGetButton(joystick, 4);
-        int boton5 = SDL_JoystickGetButton(joystick, 5);
-        int boton6 = SDL_JoystickGetButton(joystick, 6);
-        int boton7 = SDL_JoystickGetButton(joystick, 7);
-        int boton8 = SDL_JoystickGetButton(joystick, 8);
-        int boton9 = SDL_JoystickGetButton(joystick, 9);
-        int boton10 = SDL_JoystickGetButton(joystick, 10);
-        int boton11 = SDL_JoystickGetButton(joystick, 11);
+        boton0 = SDL_JoystickGetButton(joystick, 0);
+        boton1 = SDL_JoystickGetButton(joystick, 1);
+        boton2 = SDL_JoystickGetButton(joystick, 2);
+        boton3 = SDL_JoystickGetButton(joystick, 3);
+        boton4 = SDL_JoystickGetButton(joystick, 4);
+        boton5 = SDL_JoystickGetButton(joystick, 5);
+        boton6 = SDL_JoystickGetButton(joystick, 6);
+        boton7 = SDL_JoystickGetButton(joystick, 7);
+        boton8 = SDL_JoystickGetButton(joystick, 8);
+        boton9 = SDL_JoystickGetButton(joystick, 9);
+        boton10 = SDL_JoystickGetButton(joystick, 10);
+        boton11 = SDL_JoystickGetButton(joystick, 11);
+
+        if (PWR) {
+            PWRJS0 = 100 * sqrt(axis0 * axis0 + axis1 * axis1) / 32768;
+            PWRJS1 = 100 * sqrt(axis3 * axis3 + axis4 * axis4) / 32768;
+            PWRTL = 25 * axis2 / 16384 + 50;
+            PWRTR = 25 * axis5 / 16384 + 50;           
+            if (PWRJS0 > 100) {
+                PWRJS0 = 100;
+            }
+            if (PWRJS1 > 100) {
+                PWRJS1 = 100;
+            }
+        }     
 
         // Axis 1 & 2 | JS0
         if (axis0 > margen && axis1 < -margen) {
@@ -321,9 +393,9 @@ int main() {
         }
 
         // Axis 2 & 5
-        if (axis2 > margen) {
+        if (axis2 > margenTLR) {
             TriggerIzquierdoPresionado();}
-        if (axis5 > margen) {
+        if (axis5 > margenTLR) {
             TriggerDerechoPresionado();}
         
 
@@ -370,8 +442,7 @@ int main() {
         if (boton10) {
             Boton10();}
         if (boton11) {
-            Boton11();}
-            
+            Boton11();}   
     }
 
     // Close the joystick and quit SDL
