@@ -37,18 +37,28 @@
 
 
 int main() {
-    
+
     // Inicializar SDL para mando y teclado
-    SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_EVENTS);
+    if (SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_EVENTS) != 0) {
+        printf("Error inicializando SDL: %s\n", SDL_GetError());
+        return 1; // Salir si SDL no se inicializa
+
+    }
+
 
     // Abrir joystick
     SDL_Joystick* joystick = SDL_JoystickOpen(0);
+    if (joystick == NULL) {
+        printf("Error abriendo joystick: %s\n", SDL_GetError());
+        SDL_Quit();
+        return 1; // Salir si SDL no lee el mando
+    }
 
     // Crear variable de salida del programa
     bool quit = false;
 
     // Parámetros
-    int margen = 16378;
+    int margen = 2000;
     int margenTLR = 2 * margen - 32768; // Como los trigger tienen un valor en reposo de -32768, se ha de hacer una conversión lineal del margen global para que sea equivalente
 
     // Crear variables de los valores de cada botón
@@ -80,8 +90,6 @@ int main() {
     int PWRJS1 = -1;
     int PWRTL = -1;
     int PWRTR = -1;
-    margen = 2000;
-    margenTLR = 2 * margen - 32768;
     char PWRJS0_string[100];
     char PWRJS1_string[100];
     char PWRTR_string[100];
@@ -282,14 +290,14 @@ int main() {
             PWRJS0 = 100 * sqrt(axis0 * axis0 + axis1 * axis1) / 32768;
             PWRJS1 = 100 * sqrt(axis3 * axis3 + axis4 * axis4) / 32768;
             PWRTL = 25 * axis2 / 16384 + 50;
-            PWRTR = 25 * axis5 / 16384 + 50;           
+            PWRTR = 25 * axis5 / 16384 + 50;
             if (PWRJS0 > 100) {
                 PWRJS0 = 100;
             }
             if (PWRJS1 > 100) {
                 PWRJS1 = 100;
             }
-        }     
+        }
 
         // Axis 1 & 2 | JS0
         if (axis0 > margen && axis1 < -margen) {
@@ -397,7 +405,7 @@ int main() {
             TriggerIzquierdoPresionado();}
         if (axis5 > margenTLR) {
             TriggerDerechoPresionado();}
-        
+
 
         // Hat 0
         if (hat0 == 1) {
@@ -442,10 +450,10 @@ int main() {
         if (boton10) {
             Boton10();}
         if (boton11) {
-            Boton11();}   
+            Boton11();}
     }
 
-    // Close the joystick and quit SDL
+    // Cerrar el joystick y SDL
     SDL_JoystickClose(joystick);
     SDL_Quit();
 
