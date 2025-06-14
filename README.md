@@ -31,5 +31,5 @@ Además, elegí la biblioteca SDL2 porque es más cómoda que linux/joystick.h a
 
 Mi comando de compilación suele ser
 ```
-gcc -o Xbox2Shell Xbox2Shell.c -lSDL2 -O3
+gcc -o Xbox2RC Xbox2RC.c -lSDL2 -O3
 ```
