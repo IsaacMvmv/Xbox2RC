@@ -31,9 +31,5 @@ Además, elegí la biblioteca SDL2 porque es más cómoda que linux/joystick.h a
 
 Mi comando de compilación suele ser
 ```
-gcc -o Xbox2Shell Xbox2Shell.c -lSDL2 -lm -O3
+gcc -o Xbox2Shell Xbox2Shell.c -lSDL2 -O3
 ```
-
-## Direcciones de un dron
-![imagen](https://github.com/user-attachments/assets/346159e0-e7f2-4506-a8d0-0e76da8aca99)
-Usaré si no 8, 16 direcciones para el movimiento horizontal
