@@ -57,8 +57,8 @@ void transmitir() {
     system(transmision);
     transmitiendo = false;
 }
-// Variables con relación al mando:
 
+// Variables con relación al mando:
 int botones=12;
 int ejes=6;
 
@@ -94,7 +94,8 @@ void Boton5() {
     printf("Botón 5\n");
 }
 void Boton6() {
-    printf("Botón 6\n");
+    printf("Botón 6, cerrando\n");
+    centinela = false;
 }
 void Boton7() {
     printf("Botón 7\n");
